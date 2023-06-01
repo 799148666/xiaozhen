@@ -1,0 +1,17 @@
+Sub CreateTableOfContents()
+    Dim ws As Worksheet
+    Set ws = ThisWorkbook.Sheets.Add(Before:=ThisWorkbook.Sheets(1))
+    ws.Name = "目录"
+    
+    ' 在A1单元格中输入表头
+    ws.Range("A1").Value = "工作表名称"
+    
+    Dim i As Integer
+    For i = 1 To ThisWorkbook.Sheets.Count
+        ' 在A列中生成超链接
+        ws.Hyperlinks.Add Anchor:=ws.Range("A" & i + 1), _
+                          Address:="", _
+                          SubAddress:="'" & ThisWorkbook.Sheets(i).Name & "'!A1", _
+                          TextToDisplay:=ThisWorkbook.Sheets(i).Name
+    Next i
+End Sub
